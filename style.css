@@ -1,0 +1,132 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Alap test */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #212529;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  background-color: #0077ff;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+/* Ancizar Serif - csak az Osztály Újság */
+.ancizar {
+  font-family: 'Ancizar Serif', serif;
+  font-weight: 400;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Fredoka One - a többi kiemelt szöveg */
+.fredoka {
+  font-family: 'Fredoka One', cursive;
+}
+
+/* Main tartalom */
+main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+section {
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #0056b3;
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+}
+
+/* PDF és fórum dobozok */
+.pdf-container, .forum-embed {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pdf-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Lábléc */
+footer {
+  background: #e9ecef;
+  padding: 1rem;
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.1rem;
+  font-family: Arial, sans-serif;
+}
+
+/* WAWE felirat plasterrel */
+.wawe {
+  font-weight: 400;
+}
+
+.wawe .plaster {
+  font-family: 'Plaster', cursive;
+  font-weight: 400;
+}
+
+/* Animáció */
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+footer .wawe {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header .ancizar {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .pdf-container iframe,
+  .forum-embed iframe {
+    height: 400px;
+  }
+
+  main {
+    padding: 0 0.5rem;
+  }
+}

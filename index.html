@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Osztály Újság</title>
+  
+  <!-- Google Fonts betűk -->
+  <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif&family=Fredoka+One&family=Plaster&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1 class="ancizar">📰 Osztály Újság</h1>
+    <p class="fredoka">A ti hangotok, a mi történeteink.</p>
+  </header>
+
+  <main>
+    <section class="pdf-section reveal">
+      <h2 class="fredoka">Aktuális Újság</h2>
+<div style="position: relative; width: 100%; padding-bottom: 150%;">
+  <iframe src="actual.htm" style="position: absolute; width: 100%; height: 100%; border: none;"></iframe>
+</div>
+
+    </section>
+
+    <section class="forum-section reveal">
+      <h2 class="fredoka">📬 Vélemények, visszajelzések</h2>
+      <div class="forum-embed">
+        <iframe 
+          src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAYRhd7RUNDdHR1BTOFgxMjZWOE5EVFUxT0tLRE5QSi4u&embed=true" 
+          frameborder="0"
+          style="border: none; width: 100%; height: 480px;"
+          allowfullscreen
+          webkitallowfullscreen
+          mozallowfullscreen
+          msallowfullscreen>
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="wawe">© 2025 <span class="plaster">WAWE</span></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
