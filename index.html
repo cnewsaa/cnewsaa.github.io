@@ -1,31 +1,127 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Osztály Újság</title>
-  
-  <!-- Google Fonts betűk -->
-  <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif&family=Fredoka+One&family=Plaster&display=swap" rel="stylesheet" />
-  
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
   <header>
-    <h1 class="ancizar">📰 Osztály Újság</h1>
+    <h1 class="ancizar">📰 Osztály Ujságok</h1>
     <p class="fredoka">A ti hangotok, a mi történeteink.</p>
   </header>
 
-  <main>
-    <section class="pdf-section reveal">
-      <h2 class="fredoka">Aktuális Újság</h2>
-<div style="position: relative; width: 100%; padding-bottom: 150%;">
-  <iframe src="actual.htm" style="position: absolute; width: 100%; height: 100%; border: none;"></iframe>
-</div>
 
-    </section>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Újság Nézet</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-    <section class="forum-section reveal">
+        .switcher {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .switcher button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .switcher button.active {
+            background-color: #0056b3;
+        }
+
+        .content-wrapper {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            padding: 20px;
+            transition: opacity 0.5s ease-in-out;
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .forum-section {
+            background: #eef1f5;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
+
+        .forum-section a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .forum-section a:hover {
+            background-color: #1e7e34;
+        }
+
+        /* Popup styles */
+        .popup-overlay {
+            position: fixed;
+            display: none;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .popup-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .popup-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="switcher">
+        <button onclick="showImage('heti')" id="btn-heti" class="active">Heti</button>
+        <button onclick="showImage('napi')" id="btn-napi">Napi</button>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="image-container" id="imageContainer" onclick="openPopup()">
+            <img src="heti.jpg" id="mainImage" alt="Heti Újság">
+        </div>
+        <div class="forum-section">
       <h2 class="fredoka">📬 Vélemények, visszajelzések</h2>
       <div class="forum-embed">
         <iframe 
@@ -38,13 +134,50 @@
           msallowfullscreen>
         </iframe>
       </div>
-    </section>
-  </main>
+        </div>
+    </div>
 
-  <footer>
-    <p class="wawe">© 2025 <span class="plaster">WAWE</span></p>
-  </footer>
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()">
+        <div class="popup-content">
+            <img src="heti.jpg" id="popupImage" alt="Nagyított kép">
+        </div>
+    </div>
 
-  <script src="script.js"></script>
+    <script>
+        function showImage(type) {
+            const img = document.getElementById('mainImage');
+            const popupImg = document.getElementById('popupImage');
+            const container = document.getElementById('imageContainer');
+            const btnHeti = document.getElementById('btn-heti');
+            const btnNapi = document.getElementById('btn-napi');
+
+            container.style.opacity = 0;
+
+            setTimeout(() => {
+                if (type === 'heti') {
+                    img.src = 'heti.jpg';
+                    popupImg.src = 'heti.jpg';
+                    img.alt = 'Heti Újság';
+                    btnHeti.classList.add('active');
+                    btnNapi.classList.remove('active');
+                } else {
+                    img.src = 'napi.jpg';
+                    popupImg.src = 'napi.jpg';
+                    img.alt = 'Napi Újság';
+                    btnNapi.classList.add('active');
+                    btnHeti.classList.remove('active');
+                }
+                container.style.opacity = 1;
+            }, 300);
+        }
+
+        function openPopup() {
+            document.getElementById('popupOverlay').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('active');
+        }
+    </script>
 </body>
 </html>
