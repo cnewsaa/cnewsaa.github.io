@@ -1,12 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <header>
-    <h1 class="ancizar">📰 Osztály Ujságok</h1>
-    <p class="fredoka">A ti hangotok, a mi történeteink.</p>
-  </header>
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Újság Nézet</title>
@@ -19,12 +14,12 @@
             padding: 0;
         }
 
-        .switcher {
-            margin: 20px;
+        .switcher, .navigation {
             text-align: center;
+            margin: 15px 0;
         }
 
-        .switcher button {
+        .switcher button, .navigation button {
             padding: 10px 20px;
             margin: 0 10px;
             font-size: 16px;
@@ -113,62 +108,70 @@
 </head>
 <body>
     <div class="switcher">
-        <button onclick="showImage('heti')" id="btn-heti" class="active">Heti</button>
-        <button onclick="showImage('napi')" id="btn-napi">Napi</button>
+        <button onclick="changeMode('heti')" id="btn-heti" class="active">Heti</button>
+        <button onclick="changeMode('napi')" id="btn-napi">Napi</button>
     </div>
 
     <div class="content-wrapper">
+        <div class="navigation">
+            <button onclick="prevImage()">Előző</button>
+            <button onclick="nextImage()">Következő</button>
+        </div>
         <div class="image-container" id="imageContainer" onclick="openPopup()">
-            <img src="heti.jpg" id="mainImage" alt="Heti Újság">
+            <img src="heti1.jpg" id="mainImage" alt="Újság oldal">
         </div>
         <div class="forum-section">
-      <h2 class="fredoka">📬 Vélemények, visszajelzések</h2>
-      <div class="forum-embed">
-        <iframe 
-          src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAYRhd7RUNDdHR1BTOFgxMjZWOE5EVFUxT0tLRE5QSi4u&embed=true" 
-          frameborder="0"
-          style="border: none; width: 100%; height: 480px;"
-          allowfullscreen
-          webkitallowfullscreen
-          mozallowfullscreen
-          msallowfullscreen>
-        </iframe>
-      </div>
+            <a href="forum.html" target="_blank">Lépj be a Fórumba</a>
         </div>
     </div>
 
     <div class="popup-overlay" id="popupOverlay" onclick="closePopup()">
         <div class="popup-content">
-            <img src="heti.jpg" id="popupImage" alt="Nagyított kép">
+            <img src="heti1.jpg" id="popupImage" alt="Nagyított kép">
         </div>
     </div>
 
     <script>
-        function showImage(type) {
+        let mode = 'heti';
+        let index = 1;
+
+        function updateImage() {
             const img = document.getElementById('mainImage');
             const popupImg = document.getElementById('popupImage');
             const container = document.getElementById('imageContainer');
-            const btnHeti = document.getElementById('btn-heti');
-            const btnNapi = document.getElementById('btn-napi');
 
             container.style.opacity = 0;
-
             setTimeout(() => {
-                if (type === 'heti') {
-                    img.src = 'heti.jpg';
-                    popupImg.src = 'heti.jpg';
-                    img.alt = 'Heti Újság';
-                    btnHeti.classList.add('active');
-                    btnNapi.classList.remove('active');
-                } else {
-                    img.src = 'napi.jpg';
-                    popupImg.src = 'napi.jpg';
-                    img.alt = 'Napi Újság';
-                    btnNapi.classList.add('active');
-                    btnHeti.classList.remove('active');
-                }
+                const imgSrc = mode + index + '.jpg';
+                img.src = imgSrc;
+                img.alt = mode.charAt(0).toUpperCase() + mode.slice(1) + ' Újság';
+                popupImg.src = imgSrc;
                 container.style.opacity = 1;
-            }, 300);
+            }, 200);
+        }
+
+        function changeMode(newMode) {
+            if (mode !== newMode) {
+                mode = newMode;
+                index = 1;
+                document.getElementById('btn-heti').classList.toggle('active', mode === 'heti');
+                document.getElementById('btn-napi').classList.toggle('active', mode === 'napi');
+                updateImage();
+            }
+        }
+
+        function nextImage() {
+            if (index < 2) {
+                index++;
+                updateImage();
+            }
+        }
+
+        function prevImage() {
+            if (index > 1) {
+                index--;
+                updateImage();
+            }
         }
 
         function openPopup() {
