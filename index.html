@@ -1,17 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Újság Nézet</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Újság</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f4f4f4;
             margin: 0;
             padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 18px;
         }
 
         .switcher, .navigation {
@@ -105,12 +120,13 @@
             display: flex;
         }
     </style>
-	  <header>
-    <h1 class="ancizar">📰 Osztály Ujságok</h1>
-    <p class="fredoka">A ti hangotok, a mi történeteink.</p>
-  </header>
 </head>
 <body>
+    <header>
+        <h1 class="ancizar">📰 Osztály Újságok</h1>
+        <p class="fredoka">A ti hangotok, a mi történeteink.</p>
+    </header>
+
     <div class="switcher">
         <button onclick="changeMode('heti')" id="btn-heti" class="active">Heti</button>
         <button onclick="changeMode('napi')" id="btn-napi">Napi</button>
@@ -125,18 +141,18 @@
             <img src="heti1.jpg" id="mainImage" alt="Újság oldal">
         </div>
         <div class="forum-section">
-      <h2 class="fredoka">📬 Vélemények, visszajelzések</h2>
-      <div class="forum-embed">
-        <iframe 
-          src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAYRhd7RUNDdHR1BTOFgxMjZWOE5EVFUxT0tLRE5QSi4u&embed=true" 
-          frameborder="0"
-          style="border: none; width: 100%; height: 480px;"
-          allowfullscreen
-          webkitallowfullscreen
-          mozallowfullscreen
-          msallowfullscreen>
-        </iframe>
-      </div>
+            <h2 class="fredoka">📬 Vélemények, visszajelzések</h2>
+            <div class="forum-embed">
+                <iframe 
+                    src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAYRhd7RUNDdHR1BTOFgxMjZWOE5EVFUxT0tLRE5QSi4u&embed=true" 
+                    frameborder="0"
+                    style="border: none; width: 100%; height: 480px;"
+                    allowfullscreen
+                    webkitallowfullscreen
+                    mozallowfullscreen
+                    msallowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
 
@@ -145,60 +161,66 @@
             <img src="heti1.jpg" id="popupImage" alt="Nagyított kép">
         </div>
     </div>
-<script>
-    let mode = 'heti';
-    let index = 1;
 
-    function updateImage() {
-        const img = document.getElementById('mainImage');
-        const popupImg = document.getElementById('popupImage');
-        const container = document.getElementById('imageContainer');
+    <script>
+        let mode = 'heti';
+        let index = 1;
 
-        container.style.opacity = 0;
-        setTimeout(() => {
-            const imgSrc = mode + index + '.jpg';
-            img.src = imgSrc;
-            img.alt = mode.charAt(0).toUpperCase() + mode.slice(1) + ' Újság';
-            popupImg.src = imgSrc;
-            container.style.opacity = 1;
-        }, 200);
-    }
+        function updateImage() {
+            const img = document.getElementById('mainImage');
+            const popupImg = document.getElementById('popupImage');
+            const container = document.getElementById('imageContainer');
 
-    function changeMode(newMode) {
-        if (mode !== newMode) {
-            mode = newMode;
-            index = 1;
-            document.getElementById('btn-heti').classList.toggle('active', mode === 'heti');
-            document.getElementById('btn-napi').classList.toggle('active', mode === 'napi');
-            updateImage();
+            container.style.opacity = 0;
+            setTimeout(() => {
+                const imgSrc = mode + index + '.jpg';
+                img.src = imgSrc;
+                img.alt = mode.charAt(0).toUpperCase() + mode.slice(1) + ' Újság';
+                popupImg.src = imgSrc;
+                container.style.opacity = 1;
+            }, 200);
         }
-    }
 
-    function getMaxIndex() {
-        return mode === 'heti' ? 2 : 3;
-    }
-
-    function nextImage() {
-        if (index < getMaxIndex()) {
-            index++;
-            updateImage();
+        function changeMode(newMode) {
+            if (mode !== newMode) {
+                mode = newMode;
+                index = 1;
+                document.getElementById('btn-heti').classList.remove('active');
+                document.getElementById('btn-napi').classList.remove('active');
+                document.getElementById('btn-' + mode).classList.add('active');
+                updateImage();
+            }
         }
-    }
 
-    function prevImage() {
-        if (index > 1) {
-            index--;
-            updateImage();
+        function getMaxIndex() {
+            return mode === 'heti' ? 2 : 3;
         }
-    }
 
-    function openPopup() {
-        document.getElementById('popupOverlay').classList.add('active');
-    }
+        function nextImage() {
+            if (index < getMaxIndex()) {
+                index++;
+                updateImage();
+            }
+        }
 
-    function closePopup() {
-        document.getElementById('popupOverlay').classList.remove('active');
-    }
-</script>
+        function prevImage() {
+            if (index > 1) {
+                index--;
+                updateImage();
+            }
+        }
+
+        function openPopup() {
+            document.getElementById('popupOverlay').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateImage();
+        });
+    </script>
 </body>
 </html>
