@@ -145,57 +145,60 @@
             <img src="heti1.jpg" id="popupImage" alt="Nagyított kép">
         </div>
     </div>
+<script>
+    let mode = 'heti';
+    let index = 1;
 
-    <script>
-        let mode = 'heti';
-        let index = 1;
+    function updateImage() {
+        const img = document.getElementById('mainImage');
+        const popupImg = document.getElementById('popupImage');
+        const container = document.getElementById('imageContainer');
 
-        function updateImage() {
-            const img = document.getElementById('mainImage');
-            const popupImg = document.getElementById('popupImage');
-            const container = document.getElementById('imageContainer');
+        container.style.opacity = 0;
+        setTimeout(() => {
+            const imgSrc = mode + index + '.jpg';
+            img.src = imgSrc;
+            img.alt = mode.charAt(0).toUpperCase() + mode.slice(1) + ' Újság';
+            popupImg.src = imgSrc;
+            container.style.opacity = 1;
+        }, 200);
+    }
 
-            container.style.opacity = 0;
-            setTimeout(() => {
-                const imgSrc = mode + index + '.jpg';
-                img.src = imgSrc;
-                img.alt = mode.charAt(0).toUpperCase() + mode.slice(1) + ' Újság';
-                popupImg.src = imgSrc;
-                container.style.opacity = 1;
-            }, 200);
+    function changeMode(newMode) {
+        if (mode !== newMode) {
+            mode = newMode;
+            index = 1;
+            document.getElementById('btn-heti').classList.toggle('active', mode === 'heti');
+            document.getElementById('btn-napi').classList.toggle('active', mode === 'napi');
+            updateImage();
         }
+    }
 
-        function changeMode(newMode) {
-            if (mode !== newMode) {
-                mode = newMode;
-                index = 1;
-                document.getElementById('btn-heti').classList.toggle('active', mode === 'heti');
-                document.getElementById('btn-napi').classList.toggle('active', mode === 'napi');
-                updateImage();
-            }
-        }
+    function getMaxIndex() {
+        return mode === 'heti' ? 2 : 3;
+    }
 
-        function nextImage() {
-            if (index < 2) {
-                index++;
-                updateImage();
-            }
+    function nextImage() {
+        if (index < getMaxIndex()) {
+            index++;
+            updateImage();
         }
+    }
 
-        function prevImage() {
-            if (index > 1) {
-                index--;
-                updateImage();
-            }
+    function prevImage() {
+        if (index > 1) {
+            index--;
+            updateImage();
         }
+    }
 
-        function openPopup() {
-            document.getElementById('popupOverlay').classList.add('active');
-        }
+    function openPopup() {
+        document.getElementById('popupOverlay').classList.add('active');
+    }
 
-        function closePopup() {
-            document.getElementById('popupOverlay').classList.remove('active');
-        }
-    </script>
+    function closePopup() {
+        document.getElementById('popupOverlay').classList.remove('active');
+    }
+</script>
 </body>
 </html>
