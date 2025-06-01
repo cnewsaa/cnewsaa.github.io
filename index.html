@@ -129,7 +129,7 @@
 
     <div class="switcher">
         <button onclick="changeMode('heti')" id="btn-heti" class="active">Heti</button>
-        <button onclick="changeMode('t')" id="btn-napi">Napi</button>
+        <button onclick="changeMode('t')" id="btn-t">Napi</button>
     </div>
 
     <div class="content-wrapper">
@@ -186,7 +186,7 @@
                 mode = newMode;
                 index = 1;
                 document.getElementById('btn-heti').classList.remove('active');
-                document.getElementById('btn-napi').classList.remove('active');
+                document.getElementById('btn-t').classList.remove('active');
                 document.getElementById('btn-' + mode).classList.add('active');
                 updateImage();
             }
